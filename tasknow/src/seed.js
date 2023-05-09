@@ -6,7 +6,7 @@ export default store => {
 
   store.dispatch({
     type: "ADD_LIST",
-    payload: { listId: firstListId, listTitle: "Cosas que hacer" }
+    payload: { listId: firstListId, listTitle: "Tareas" }
   });
 
   store.dispatch({
