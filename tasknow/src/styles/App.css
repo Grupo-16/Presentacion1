@@ -4,13 +4,14 @@
   }
   
   .Header {
-    background: rgba(0, 0, 0, 0.15);
-    color: rgb(0, 0, 0);
+    background: rgba(81, 81, 81, 0.667);
+    color: rgb(255, 255, 255);
     padding: 5px 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     text-align: center;
     font-size: 40px;
     font-weight: 200;
+    border: 1px solid rgba(0, 0, 0, 0.12);
   }
 
   .center {
