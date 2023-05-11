@@ -106,8 +106,8 @@ const board = (state = { lists: [] }, action) => {
         return { ...state, [cardId]: { text: cardText, _id: cardId } };
       }
       case "CHANGE_CARD_TEXT": {
-        const { cardText, cardId } = action.payload;
-        return { ...state, [cardId]: { ...state[cardId], text: cardText } };
+        const { cardText, cardDescription, cardId } = action.payload;
+        return { ...state, [cardId]: { ...state[cardId], text: cardText, description: cardDescription } };
       }
       case "DELETE_CARD": {
         const { cardId } = action.payload;

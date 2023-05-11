@@ -22,19 +22,20 @@ class Card extends Component {
     this.setState({
       hover: false,
       editing: true,
-      text: this.props.card.text
+      text: this.props.card.text,
+      description: this.props.card.description
     });
   
   endEditing = () => this.setState({ hover: false, editing: false });
   
-  editCard = async text => {
+  editCard = async(text,description) => {
     const { card, dispatch } = this.props;
   
     this.endEditing();
   
     dispatch({
       type: "CHANGE_CARD_TEXT",
-      payload: { cardId: card._id, cardText: text }
+      payload: { cardId: card._id, cardText: text, cardDescription: description}
     });
   };
   
@@ -74,6 +75,7 @@ class Card extends Component {
       return (
         <CardEditor
           text={card.text}
+          description={card.description}
           onSave={this.editCard}
           onDelete={this.deleteCard}
           onCancel={this.endEditing}
@@ -82,9 +84,5 @@ class Card extends Component {
     }
   }
 }
-
-
-
-
 
 export default connect(mapStateToProps)(Card);

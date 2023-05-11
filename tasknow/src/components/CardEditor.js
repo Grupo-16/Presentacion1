@@ -18,8 +18,7 @@ class CardEditor extends Component {
 
     if (e.keyCode === 13) {
       e.preventDefault();
-      this.props.onSave(text);
-      this.props.onSave(description);
+      this.props.onSave(text, description);
     }
   };
 
@@ -51,7 +50,7 @@ class CardEditor extends Component {
         </div>
         
         <EditButtons
-          handleSave={() => onSave(text)}
+          handleSave={() => onSave(text, description)}
           saveLabel={adding ? "Agregar tarea" : "Guardar"}
           handleDelete={onDelete}
           handleCancel={onCancel}
