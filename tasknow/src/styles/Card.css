@@ -16,6 +16,10 @@
     padding-top: 20px;
     text-align: right;
   }
+
+  .CardDescripcion{
+    text-align: left;
+  }
   
   .Card:hover {
     background: #f5f6f7;

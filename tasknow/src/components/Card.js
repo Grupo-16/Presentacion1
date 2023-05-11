@@ -80,7 +80,7 @@ class Card extends Component {
 
           {seeingDetails && (
           
-          <div>
+          <div className="CardDescripcion">
             <hr></hr>
             {card.description || "Sin descripcion..."}
           </div>
