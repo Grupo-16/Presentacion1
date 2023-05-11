@@ -85,12 +85,9 @@ class List extends Component {
     const { editingTitle, addingCard, title } = this.state;
 
     return (
-      <Draggable draggableId={list._id} index={index}>
-        {(provided, snapshot) => (
+      
           <div
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
+            
             className="List"
           >
             {editingTitle ? (
@@ -128,16 +125,18 @@ class List extends Component {
                       adding
                     />
                   ) : (
+                    
                     <div className="Toggle-Add-Card" onClick={this.toggleAddingCard}>
                       <ion-icon name="add" /> Nueva tarea
                     </div>
+                    
+                    
                   )}
                 </div>
               )}
             </Droppable>
           </div>
-        )}
-      </Draggable>
+        
     );
   }
 }

@@ -6,7 +6,21 @@ export default store => {
 
   store.dispatch({
     type: "ADD_LIST",
-    payload: { listId: firstListId, listTitle: "Tareas" }
+    payload: { listId: firstListId, listTitle: "Por hacer" }
+  });
+
+  console.log("Insert first list");
+  const secondId = shortid.generate();
+  store.dispatch({
+    type: "ADD_LIST",
+    payload: { listId: secondId, listTitle: "En curso" }
+  });
+
+  console.log("Insert first list");
+  const thirdId = shortid.generate();
+  store.dispatch({
+    type: "ADD_LIST",
+    payload: { listId: thirdId, listTitle: "Finalizada" }
   });
 
   store.dispatch({

@@ -2,13 +2,13 @@ import "../styles/Card.css";
 import CardEditor from "./CardEditor";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Draggable } from "react-beautiful-dnd";
 
 const mapStateToProps = (state, ownProps) => ({
   card: state.cardsById[ownProps.cardId]
 });
 
 class Card extends Component {
-
 
   state = {
     hover: false,
@@ -24,7 +24,8 @@ class Card extends Component {
       hover: false,
       editing: true,
       text: this.props.card.text,
-      description: this.props.card.description
+      description: this.props.card.description,
+      fecha: this.props.card.fecha
     });
 
   seeDetails = () => this.setState({
@@ -34,14 +35,14 @@ class Card extends Component {
   
   endEditing = () => this.setState({ hover: false, editing: false });
   
-  editCard = async(text,description) => {
+  editCard = async(text,description, fecha) => {
     const { card, dispatch } = this.props;
   
     this.endEditing();
   
     dispatch({
       type: "CHANGE_CARD_TEXT",
-      payload: { cardId: card._id, cardText: text, cardDescription: description}
+      payload: { cardId: card._id, cardText: text, cardDescription: description, cardFecha: fecha}
     });
   };
   
@@ -55,12 +56,18 @@ class Card extends Component {
   };
 
   render() {
-    const { card } = this.props;
+    const { card, index, fecha } = this.props;
     const { hover, editing, seeingDetails } = this.state;
-  
+    // new Date().toISOString().split('T')[0]
+    
     if (!editing) {
       return (
+        <Draggable draggableId={card._id} index={index}>
+          {(provided, snapshot) => (
         <div
+        ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
           className="Card"
           onMouseEnter={this.startHover}
           onMouseLeave={this.endHover}
@@ -87,12 +94,13 @@ class Card extends Component {
           )}
 
           <div className="CardVencimiento">
-            Vence: 03/08/2019
+            Vence: { new Date().toISOString().split('T')[0]  } 
           </div>
           
         </div>
+        )}
+        </Draggable>
       );
-      
     } else {
       return (
         <CardEditor
