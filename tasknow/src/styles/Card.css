@@ -11,6 +11,11 @@
     overflow-wrap: break-word;
     min-height: 40px;
   }
+
+  .CardVencimiento{
+    padding-top: 20px;
+    text-align: right;
+  }
   
   .Card:hover {
     background: #f5f6f7;
@@ -44,3 +49,4 @@
     opacity: 1;
     background: rgba(220, 220, 220, 1);
   }
+

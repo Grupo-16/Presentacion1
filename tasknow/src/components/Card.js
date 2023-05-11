@@ -12,7 +12,8 @@ class Card extends Component {
 
   state = {
     hover: false,
-    editing: false
+    editing: false,
+    seeingDetails: false,
   };
   
   startHover = () => this.setState({ hover: true });
@@ -25,6 +26,11 @@ class Card extends Component {
       text: this.props.card.text,
       description: this.props.card.description
     });
+
+  seeDetails = () => this.setState({
+    seeingDetails: !this.state.seeingDetails,
+  });
+
   
   endEditing = () => this.setState({ hover: false, editing: false });
   
@@ -50,7 +56,7 @@ class Card extends Component {
 
   render() {
     const { card } = this.props;
-    const { hover, editing } = this.state;
+    const { hover, editing, seeingDetails } = this.state;
   
     if (!editing) {
       return (
@@ -58,6 +64,7 @@ class Card extends Component {
           className="Card"
           onMouseEnter={this.startHover}
           onMouseLeave={this.endHover}
+          onClick={this.seeDetails}
         >
           {hover && (
             <div className="Card-Icons">
@@ -67,10 +74,25 @@ class Card extends Component {
             </div>
           )}
 
+          <div>
           {card.text}
+          </div>
+
+          {seeingDetails && (
+          
+          <div>
+            <hr></hr>
+            {card.description || "Sin descripcion..."}
+          </div>
+          )}
+
+          <div className="CardVencimiento">
+            Vence: 03/08/2019
+          </div>
           
         </div>
       );
+      
     } else {
       return (
         <CardEditor
