@@ -6,22 +6,25 @@ import EditButtons from "./EditButtons";
 
 class CardEditor extends Component {
   state = {
-    text: this.props.text || ""
+    text: this.props.text || "",
+    description: this.props.description || ""
   };
 
   handleChangeText = event => this.setState({ text: event.target.value });
+  handleChangeDescription = event => this.setState({description: event.target.value});
 
-  onEnter = e => {
-    const { text } = this.state;
+  onEnterKeyPressed = e => { // When key enter is pressed
+    const { text, description } = this.state;
 
     if (e.keyCode === 13) {
       e.preventDefault();
       this.props.onSave(text);
+      this.props.onSave(description);
     }
   };
 
   render() {
-    const { text } = this.state;
+    const { text, description } = this.state;
     const { onSave, onCancel, onDelete, adding } = this.props;
 
     return (
@@ -30,15 +33,26 @@ class CardEditor extends Component {
           <TextareaAutosize
             autoFocus
             className="Edit-Card-Textarea"
-            placeholder="Enter the text for this card..."
+            placeholder="Titulo tarea"
             value={text}
             onChange={this.handleChangeText}
-            onKeyDown={this.onEnter}
+            onKeyDown={this.onEnterKeyPressed}
           />
+        <hr></hr>
+        <TextareaAutosize
+            autoFocus
+            className="Edit-Card-Description"
+            placeholder="Descripción"
+            value={description}
+            onChange={this.handleChangeDescription}
+            onKeyDown={this.onEnterKeyPressed}
+          />
+
         </div>
+        
         <EditButtons
           handleSave={() => onSave(text)}
-          saveLabel={adding ? "Add card" : "Guardar"}
+          saveLabel={adding ? "Agregar tarea" : "Guardar"}
           handleDelete={onDelete}
           handleCancel={onCancel}
         />
