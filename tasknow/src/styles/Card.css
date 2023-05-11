@@ -1,7 +1,7 @@
 .Card {
     position: relative;
     cursor: pointer;
-    background: white;
+    background: rgb(255, 255, 255);
     margin: 5px;
     padding: 10px;
     border-radius: 5px;
