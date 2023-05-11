@@ -20,7 +20,7 @@ class List extends Component {
   toggleAddingCard = () =>
     this.setState({ addingCard: !this.state.addingCard });
 
-  addCard = async cardText => {
+  addCard = async (cardText, cardDescription) => {
     const { listId, dispatch } = this.props;
 
     this.toggleAddingCard();
@@ -29,7 +29,7 @@ class List extends Component {
 
     dispatch({
       type: "ADD_CARD",
-      payload: { cardText, cardId, listId }
+      payload: { cardText, cardDescription, cardId, listId }
     });
   };
 

@@ -12,7 +12,8 @@ class Card extends Component {
 
   state = {
     hover: false,
-    editing: false
+    editing: false,
+    seeingDetails: false,
   };
   
   startHover = () => this.setState({ hover: true });
@@ -22,19 +23,25 @@ class Card extends Component {
     this.setState({
       hover: false,
       editing: true,
-      text: this.props.card.text
+      text: this.props.card.text,
+      description: this.props.card.description
     });
+
+  seeDetails = () => this.setState({
+    seeingDetails: !this.state.seeingDetails,
+  });
+
   
   endEditing = () => this.setState({ hover: false, editing: false });
   
-  editCard = async text => {
+  editCard = async(text,description) => {
     const { card, dispatch } = this.props;
   
     this.endEditing();
   
     dispatch({
       type: "CHANGE_CARD_TEXT",
-      payload: { cardId: card._id, cardText: text }
+      payload: { cardId: card._id, cardText: text, cardDescription: description}
     });
   };
   
@@ -49,7 +56,7 @@ class Card extends Component {
 
   render() {
     const { card } = this.props;
-    const { hover, editing } = this.state;
+    const { hover, editing, seeingDetails } = this.state;
   
     if (!editing) {
       return (
@@ -57,6 +64,7 @@ class Card extends Component {
           className="Card"
           onMouseEnter={this.startHover}
           onMouseLeave={this.endHover}
+          onClick={this.seeDetails}
         >
           {hover && (
             <div className="Card-Icons">
@@ -65,13 +73,31 @@ class Card extends Component {
               </div>
             </div>
           )}
+
+          <div>
           {card.text}
+          </div>
+
+          {seeingDetails && (
+          
+          <div className="CardDescripcion">
+            <hr></hr>
+            {card.description || "Sin descripcion..."}
+          </div>
+          )}
+
+          <div className="CardVencimiento">
+            Vence: 03/08/2019
+          </div>
+          
         </div>
       );
+      
     } else {
       return (
         <CardEditor
           text={card.text}
+          description={card.description}
           onSave={this.editCard}
           onDelete={this.deleteCard}
           onCancel={this.endEditing}
@@ -80,9 +106,5 @@ class Card extends Component {
     }
   }
 }
-
-
-
-
 
 export default connect(mapStateToProps)(Card);
