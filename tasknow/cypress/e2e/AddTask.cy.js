@@ -7,7 +7,6 @@ describe('Agregar Tarea', () => {
 
         // Variables con las que vamos a probar una tarea nueva
         
-        
         cy.visit('localhost:3000');
         
         // Crear la nueva tarea con los parámetros anteriores

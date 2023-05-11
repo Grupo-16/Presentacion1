@@ -67,7 +67,7 @@ class List extends Component {
     const searchFilter = this.props.searchFilter;
     let is_valid = true;
     
-    if( (new RegExp(searchFilter)).test(cardTitle)){
+    if( (new RegExp(searchFilter.toLowerCase())).test(cardTitle.toLowerCase())){
       return(
         <Card
           key={cardId}

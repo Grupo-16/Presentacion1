@@ -13,6 +13,7 @@ describe('Eliminar Tarea', () => {
             .get('.Button-Delete')
             .click();
 
+        // verificar eliminación
         cy.get('.List > .Lists-Cards > .Card')
             .should('have.lengthOf', 1);
     });
