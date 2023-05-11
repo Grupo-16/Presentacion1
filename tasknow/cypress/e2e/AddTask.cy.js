@@ -1,9 +1,12 @@
 describe('Agregar Tarea', () => { 
+
+    var taskTitle = 'Tarea MUY importante'
+    var taskDesc = 'Bro, realmente deberías hacer esta tarea bro...'
+
     it('Agregar una nueva tarea, verificar que se agrega correctamente', () => {
 
         // Variables con las que vamos a probar una tarea nueva
-        var taskTitle = 'Tarea MUY importante'
-        var taskDesc = 'Bro, realmente deberías hacer esta tarea bro...'
+        
         
         cy.visit('localhost:3000');
         
@@ -32,9 +35,6 @@ describe('Agregar Tarea', () => {
     });
 
     it('Cancelar la creación de una nueva tarea', () => {
-
-        var taskTitle = 'Tarea MUY importante'
-        var taskDesc = 'Bro, realmente deberías hacer esta tarea bro...'
 
         cy.visit('localhost:3000');
         
