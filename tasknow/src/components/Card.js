@@ -74,7 +74,7 @@ class Card extends Component {
             </div>
           )}
 
-          <div>
+          <div className="CardTitle">
           {card.text}
           </div>
 
