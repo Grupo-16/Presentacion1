@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import List from "./List";
+import Buscador from "./Buscador";
 
 class Board extends Component {
   state = {
@@ -57,7 +58,9 @@ class Board extends Component {
     const { addingList } = this.state;
 
     return (
+      <div><Buscador/>
       <DragDropContext onDragEnd={this.handleDragEnd}>
+        
         <Droppable droppableId="board" direction="horizontal" type="COLUMN">
           {(provided, _snapshot) => (
             <div className="Board" ref={provided.innerRef}>
@@ -66,12 +69,11 @@ class Board extends Component {
               })}
 
               {provided.placeholder}
-
-              
             </div>
           )}
         </Droppable>
       </DragDropContext>
+      </div>
     );
   }
 }
