@@ -9,7 +9,8 @@ import Buscador from "./Buscador";
 
 class Board extends Component {
   state = {
-    addingList: false
+    addingList: false,
+    currentSearch: ""
   };
 
   toggleAddingList = () =>
@@ -53,19 +54,24 @@ class Board extends Component {
     }
   };
 
+  onSearch = newSearch => {
+
+    this.setState({ currentSearch: newSearch });
+  }
+
   render() {
     const { board } = this.props;
-    const { addingList } = this.state;
-
+    const { addingList, currentSearch } = this.state;
     return (
-      <div><Buscador/>
+      <div>
+        <Buscador search={currentSearch} onSearch={this.onSearch} />
       <DragDropContext onDragEnd={this.handleDragEnd}>
         
         <Droppable droppableId="board" direction="horizontal" type="COLUMN">
           {(provided, _snapshot) => (
             <div className="Board" ref={provided.innerRef}>
               {board.lists.map((listId, index) => {
-                return <List listId={listId} key={listId} index={index} />;
+                return <List searchFilter={ currentSearch} listId={listId} key={listId} index={index} />;
               })}
 
               {provided.placeholder}

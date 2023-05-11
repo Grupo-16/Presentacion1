@@ -1,12 +1,13 @@
 import "../styles/List.css";
 
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { connect , useSelector} from "react-redux";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 
 import Card from "./Card";
 import CardEditor from "./CardEditor";
 import ListEditor from "./ListEditor";
+import store from "../store";
 
 import shortid from "shortid";
 
@@ -61,6 +62,24 @@ class List extends Component {
     }
   };
 
+  applyFilter(cardId, index, list_id){
+    let cardTitle = store.getState().cardsById[cardId].text;
+    const searchFilter = this.props.searchFilter;
+    let is_valid = true;
+    
+    if( (new RegExp(searchFilter)).test(cardTitle)){
+      return(
+        <Card
+          key={cardId}
+          cardId={cardId}
+          index={index}
+          listId={list_id}
+        />);
+    }
+    return(<div></div>)
+  };
+
+
   render() {
     const { list, index } = this.props;
     const { editingTitle, addingCard, title } = this.state;
@@ -93,14 +112,12 @@ class List extends Component {
               {(provided, _snapshot) => (
                 <div ref={provided.innerRef} className="Lists-Cards">
                   {list.cards &&
-                    list.cards.map((cardId, index) => (
-                      <Card
-                        key={cardId}
-                        cardId={cardId}
-                        index={index}
-                        listId={list._id}
-                      />
-                    ))}
+                    
+                    list.cards.map( (cardId, index) => (
+                      
+                      this.applyFilter(cardId, index, list._id) // Filter cards
+                    )
+                    )}
 
                   {provided.placeholder}
 

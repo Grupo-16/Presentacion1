@@ -6,17 +6,20 @@ import SearchIcon from "@mui/icons-material/Search";
 
 class Buscador extends Component {
   state = {
-    search: "",
+    search: this.props.search || "",
   };
 
-  handleChangeSearch = event => this.setState({ search: event.target.value });
+  handleChangeSearch = event => {
+    this.setState({ search: event.target.value });
+    this.props.onSearch( event.target.value );
+
+  };
 
   onEnterKeyPressed = e => { // When key enter is pressed
     
   };
 
   render() {
-
     const {search} = this.state;
 
     return (
@@ -28,7 +31,7 @@ class Buscador extends Component {
             label="Search"
             variant="filled"
             value={search}
-            onChange={this.handleChangeSearch}
+            onChange={ this.handleChangeSearch }
             sx={{ width: 350 }}
             InputProps={{
                 endAdornment: (
