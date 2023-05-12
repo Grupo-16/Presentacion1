@@ -37,7 +37,8 @@ export default store => {
     payload: {
       listId: firstListId,
       cardId: shortid.generate(),
-      cardText: "Ir al medico"
+      cardText: "Comprar papas",
+      cardDescription: "Me gustan mucho las papas :)"
     }
   });
 
