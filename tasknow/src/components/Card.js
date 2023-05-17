@@ -8,44 +8,61 @@ const mapStateToProps = (state, ownProps) => ({
   card: state.cardsById[ownProps.cardId]
 });
 
+
+
+
+export class TaskDetails{
+  title = "default"
+  description = "default"
+  expiration_date = "default"
+  assigned_user = "default"
+
+  constructor(title = "", description= "", expiration_date= "", assigned_user= ""){
+    this.title = title;
+    this.description = description;
+    this.expiration_date = expiration_date;
+    this.assigned_user = assigned_user;
+  }
+
+}
+
+
 class Card extends Component {
 
+  // Class react settings
   state = {
     hover: false,
     editing: false,
     seeingDetails: false,
   };
   
-  startHover = () => this.setState({ hover: true });
-  endHover = () => this.setState({ hover: false });
-  
+  // When user start to edit the task
   startEditing = () =>
     this.setState({
       hover: false,
       editing: true,
-      text: this.props.card.text,
-      description: this.props.card.description,
-      fecha: this.props.card.fecha
     });
-
-  seeDetails = () => this.setState({
-    seeingDetails: !this.state.seeingDetails,
-  });
-
   
+  // When user finish card edition
   endEditing = () => this.setState({ hover: false, editing: false });
-  
-  editCard = async(text,description, fecha) => {
+
+  // Save task data changes
+  editCard = async(taskDetails) => {
     const { card, dispatch } = this.props;
-  
+    
     this.endEditing();
   
     dispatch({
       type: "CHANGE_CARD_TEXT",
-      payload: { cardId: card._id, cardText: text, cardDescription: description, cardFecha: fecha}
+      payload: { cardId: card._id, cardDetails: taskDetails}
     });
+
   };
   
+  seeDetails = () => this.setState({
+    seeingDetails: !this.state.seeingDetails,
+  });
+
   deleteCard = async () => {
     const { listId, card, dispatch } = this.props;
   
@@ -55,14 +72,19 @@ class Card extends Component {
     });
   };
 
+
+  startHover = () => this.setState({ hover: true });
+  endHover = () => this.setState({ hover: false });
+
   render() {
-    const { card, index, fecha } = this.props;
+    
+    const { card, index } = this.props;
     const { hover, editing, seeingDetails } = this.state;
     // new Date().toISOString().split('T')[0]
-    
+    console.log("Este es el objeto: ", card.taskDetails.title);
     if (!editing) {
       return (
-        <Draggable draggableId={card._id} index={index}>
+        <Draggable draggableId={card._id} index={index}> 
           {(provided, snapshot) => (
         <div
         ref={provided.innerRef}
@@ -80,16 +102,17 @@ class Card extends Component {
               </div>
             </div>
           )}
-
+          
           <div className="CardTitle">
-          {card.text}
+            { card.taskDetails.title }
           </div>
 
           {seeingDetails && (
           
+          // Descripcion de la tarea
           <div className="CardDescripcion">
             <hr></hr>
-            {card.description || "Sin descripcion..."}
+            {card.taskDetails.description || "Sin descripcion..."}
           </div>
           )}
 
@@ -104,11 +127,11 @@ class Card extends Component {
     } else {
       return (
         <CardEditor
-          text={card.text}
-          description={card.description}
-          onSave={this.editCard}
-          onDelete={this.deleteCard}
-          onCancel={this.endEditing}
+          taskDetails= {card.taskDetails}
+
+          onSave={ this.editCard }
+          onDelete={ this.deleteCard }
+          onCancel={ this.endEditing }
         />
       );
     }

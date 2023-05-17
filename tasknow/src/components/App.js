@@ -2,6 +2,7 @@ import "../styles/App.css";
 
 import React, { Component } from "react";
 import Board from "./Board";
+import ResponsiveAppBar from "./AppBar";
 class App extends Component {
   render() {
     let imageStyle = {
@@ -18,8 +19,7 @@ class App extends Component {
     return (
       <div className="App">
         <div class = "image" style = {imageStyle}>
-        <div className="Header">TaskNow</div>
-        
+          <ResponsiveAppBar/>
           <div className="center">
             <Board />
           </div>
