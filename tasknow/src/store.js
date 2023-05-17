@@ -1,4 +1,5 @@
 import { combineReducers, createStore } from "redux";
+//import { sessionReducer } from 'redux-react-session';
 import throttle from "lodash.throttle";
 import seed from "./seed";
 
@@ -129,11 +130,15 @@ const board = (state = { lists: [] }, action) => {
     }
   };
 
-  const reducers = combineReducers({
+  const reducers = {
     board,
     listsById,
     cardsById
-  });
+
+  }
+
+
+  const reducer = combineReducers(reducers);
   
   const saveState = state => {
     try {
@@ -157,7 +162,7 @@ const board = (state = { lists: [] }, action) => {
   };
   
   const persistedState = loadState();
-  const store = createStore(reducers, persistedState);
+  const store = createStore(reducer, persistedState);
   
   store.subscribe(
     throttle(() => {
