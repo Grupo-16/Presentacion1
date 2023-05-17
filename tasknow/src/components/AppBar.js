@@ -116,7 +116,8 @@ function ResponsiveAppBar() {
                aria-haspopup="true"
                onClick={handleClick}
                aria-label="more"
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ color: 'white'}}
+                endIcon={<KeyboardArrowDownIcon />}
               >
                 Tableros
                 
