@@ -98,6 +98,7 @@ class List extends Component {
                 saveList={this.editListTitle}
                 onClickOutside={this.editListTitle}
                 deleteList={this.deleteList}
+                
               />
             ) : (
               <div className="List-Title" onClick={this.toggleEditingTitle}>
@@ -107,7 +108,7 @@ class List extends Component {
 
             <Droppable droppableId={list._id}>
               {(provided, _snapshot) => (
-                <div ref={provided.innerRef} className="Lists-Cards">
+                <div ref={provided.innerRef} className="Lists-Cards" id={ list.title.replace(/\s+/g, '') + 'Cards'}>
                   {list.cards &&
                     
                     list.cards.map( (cardId, index) => (

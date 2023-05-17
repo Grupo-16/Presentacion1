@@ -40,7 +40,9 @@ export default store => {
     payload: {
       listId: firstListId,
       cardId: shortid.generate(),
+
       cardDetails: new TaskDetails( "Prueba1", "La descripcion", "2022", "Gerson"),
+
     }
   });
 
