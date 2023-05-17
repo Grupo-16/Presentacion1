@@ -8,11 +8,12 @@ import store from "./store";
 
 
 import "./index.css";
+import SignIn from "./components/SingIn";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <SignIn></SignIn>
   </Provider>,
   rootElement
 );
