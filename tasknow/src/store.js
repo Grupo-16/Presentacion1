@@ -102,12 +102,12 @@ const board = (state = { lists: [] }, action) => {
   const cardsById = (state = {}, action) => {
     switch (action.type) {
       case "ADD_CARD": {
-        const { cardText, cardDescription,cardId } = action.payload;
-        return { ...state, [cardId]: { text: cardText, description: cardDescription, _id: cardId } };
+        const { cardDetails, cardId } = action.payload;
+        return { ...state, [cardId]: { taskDetails: cardDetails , _id: cardId } };
       }
       case "CHANGE_CARD_TEXT": {
-        const { cardText, cardDescription, cardId } = action.payload;
-        return { ...state, [cardId]: { ...state[cardId], text: cardText, description: cardDescription } };
+        const { cardDetails, cardId } = action.payload;
+        return { ...state, [cardId]: { ...state[cardId], taskDetails: cardDetails} };
       }
       case "DELETE_CARD": {
         const { cardId } = action.payload;

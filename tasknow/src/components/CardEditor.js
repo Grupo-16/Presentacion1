@@ -10,30 +10,41 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs, { Dayjs } from 'dayjs';
 
+import { TaskDetails } from "./Card";
 
 class CardEditor extends Component {
   state = {
-    text: this.props.text || "",
-    description: this.props.description || "",
+    taskDetails: this.props.taskDetails,
     fecha:  dayjs( new Date().toISOString().split('T')[0])
+
+    
   };
   
 
-  handleChangeText = event => this.setState({ text: event.target.value });
-  handleChangeDescription = event => this.setState({description: event.target.value});
-  handleChangeFecha = event => this.setState({ fecha: event.target.value });
+  handleChangeText = event => this.setState( (prevState) => { 
+                            let taskDetails = Object.assign({}, prevState.taskDetails);
+                              taskDetails.title = event.target.value
+                              return  {taskDetails} });
+  handleChangeDescription = event => this.setState( (prevState) => { 
+    let taskDetails = Object.assign({}, prevState.taskDetails);
+    taskDetails.description = event.target.value
+    return  {taskDetails} });
+  handleChangeFecha = event => this.setState( (prevState) => { 
+    let taskDetails = Object.assign({}, prevState.taskDetails);
+    taskDetails.expiration_date = event.target.value
+    return  {taskDetails} });
 
   onEnterKeyPressed = e => { // When key enter is pressed
-    const { text, description, fecha } = this.state;
+    const { taskDetails } = this.state;
 
     if (e.keyCode === 13) {
       e.preventDefault();
-      this.props.onSave(text, description, fecha);
+      this.props.onSave(taskDetails);
     }
   };
 
   render() {
-    const { text, description, fecha } = this.state;
+    const { taskDetails } = this.state;
     const { onSave, onCancel, onDelete, adding } = this.props;
     return (
       <div className="Edit-Card">
@@ -42,7 +53,7 @@ class CardEditor extends Component {
             autoFocus
             className="Edit-Card-Textarea"
             placeholder="Titulo tarea"
-            value={text}
+            value={taskDetails.title}
             onChange={this.handleChangeText}
             onKeyDown={this.onEnterKeyPressed}
           />
@@ -51,7 +62,7 @@ class CardEditor extends Component {
             autoFocus
             className="Edit-Card-Description"
             placeholder="Descripción"
-            value={description}
+            value={taskDetails.description}
             onChange={this.handleChangeDescription}
             onKeyDown={this.onEnterKeyPressed}
           />
@@ -59,7 +70,7 @@ class CardEditor extends Component {
         </div>
         
         <EditButtons
-          handleSave={() => onSave(text, description, fecha)}
+          handleSave={() => onSave(taskDetails)}
           saveLabel={adding ? "Agregar tarea" : "Guardar"}
           handleDelete={onDelete}
           handleCancel={onCancel}

@@ -1,4 +1,5 @@
 import shortid from "shortid";
+import { TaskDetails } from "./components/Card";
 
 export default store => {
   console.log("Insert first list");
@@ -9,6 +10,7 @@ export default store => {
     payload: { listId: firstListId, listTitle: "Por hacer" }
   });
 
+  // Generar listas
   console.log("Insert first list");
   const secondId = shortid.generate();
   store.dispatch({
@@ -23,12 +25,13 @@ export default store => {
     payload: { listId: thirdId, listTitle: "Finalizada" }
   });
 
+  // Generar tareas
   store.dispatch({
     type: "ADD_CARD",
     payload: {
       listId: firstListId,
       cardId: shortid.generate(),
-      cardText: "Cocinar"
+      cardDetails: new TaskDetails( "Prueba1", "La descripcion", "2022", "Gerson"),
     }
   });
 
@@ -37,8 +40,9 @@ export default store => {
     payload: {
       listId: firstListId,
       cardId: shortid.generate(),
-      cardText: "Comprar papas",
-      cardDescription: "Me gustan mucho las papas :)"
+
+      cardDetails: new TaskDetails( "Prueba1", "La descripcion", "2022", "Gerson"),
+
     }
   });
 

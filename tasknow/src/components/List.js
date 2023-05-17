@@ -8,7 +8,7 @@ import Card from "./Card";
 import CardEditor from "./CardEditor";
 import ListEditor from "./ListEditor";
 import store from "../store";
-
+import { TaskDetails } from "./Card";
 import shortid from "shortid";
 
 class List extends Component {
@@ -21,7 +21,7 @@ class List extends Component {
   toggleAddingCard = () =>
     this.setState({ addingCard: !this.state.addingCard });
 
-  addCard = async (cardText, cardDescription) => {
+  addCard = async (taskDetails) => {
     const { listId, dispatch } = this.props;
 
     this.toggleAddingCard();
@@ -30,7 +30,7 @@ class List extends Component {
 
     dispatch({
       type: "ADD_CARD",
-      payload: { cardText, cardDescription, cardId, listId }
+      payload: { cardDetails : taskDetails, cardId, listId }
     });
   };
 
@@ -63,11 +63,11 @@ class List extends Component {
   };
 
   applyFilter(cardId, index, list_id){
-    let cardTitle = store.getState().cardsById[cardId].text;
+    let cardTitle = store.getState().cardsById[cardId].taskDetails.title;
     const searchFilter = this.props.searchFilter;
     let is_valid = true;
     
-    if( (new RegExp(searchFilter.toLowerCase())).test(cardTitle.toLowerCase())){
+    if( (new RegExp(searchFilter.toLowerCase())).test( cardTitle.toLowerCase()  )){
       return(
         <Card
           key={cardId}
@@ -123,6 +123,7 @@ class List extends Component {
                     <CardEditor
                       onSave={this.addCard}
                       onCancel={this.toggleAddingCard}
+                      taskDetails= {new TaskDetails()}
                       adding
                     />
                   ) : (
