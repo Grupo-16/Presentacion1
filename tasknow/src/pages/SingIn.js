@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { themeOptions } from '../components/Themes';
-
+import { Router, Link as RouterLink} from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -56,7 +56,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Iniciar sesion
+            Inicia sesion en TaskNow
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -74,12 +74,13 @@ export default function SignIn() {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Contraseña"
               type="password"
               id="password"
               autoComplete="current-password"
             />
             
+            <RouterLink to="/tableros">
             <Button
               type="submit"
               fullWidth
@@ -88,11 +89,14 @@ export default function SignIn() {
             >
               Iniciar sesion
             </Button>
+            </RouterLink>
             <Grid container>
               
               <Grid item>
                 <Link href="#" variant="body2">
+                  
                   {"¿No tienes cuenta? Registrate"}
+                  
                 </Link>
               </Grid>
             </Grid>
