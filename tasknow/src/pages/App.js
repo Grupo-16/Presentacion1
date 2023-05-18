@@ -1,8 +1,8 @@
 import "../styles/App.css";
 
 import React, { Component } from "react";
-import Board from "./Board";
-import ResponsiveAppBar from "./AppBar";
+import Board from "../components/Board";
+import ResponsiveAppBar from "../components/AppBar";
 class App extends Component {
   render() {
     let imageStyle = {

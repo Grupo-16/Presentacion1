@@ -1,19 +1,33 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
-import App from "./components/App";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+// Pages
+import App from "./pages/App";
+import SignIn from "./pages/SingIn";
 import { Provider } from "react-redux";
 import store from "./store";
 
 
 import "./index.css";
 
+
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <Provider store={store}>
-    <App />
-  </Provider>,
+  <BrowserRouter>
+    <Routes>
+      <Route path="/">
+
+        
+          <Route index element={ <SignIn/> } />
+          <Route path="tableros" element={<App />} />
+        
+
+      </Route>
+    </Routes>
+  </BrowserRouter>
+  </Provider>
+  ,
   rootElement
 );
 
