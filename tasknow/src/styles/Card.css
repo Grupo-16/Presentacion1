@@ -17,6 +17,11 @@
     text-align: right;
   }
 
+  .TaskUserAsignado{
+    padding-top: 20px;
+    text-align: left;
+  }
+
   .CardDescripcion{
     text-align: left;
   }
