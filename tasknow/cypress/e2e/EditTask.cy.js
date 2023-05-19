@@ -7,6 +7,14 @@ describe('Editar tareas', () => {
 
         cy.visit('localhost:3000');
 
+        cy.get('#email').type('test@user.com');
+        cy.get('#password').type('asdf');
+        cy.get('.MuiButtonBase-root').click()
+
+        cy.get('.Toggle-Add-Card').first().click();
+        cy.get('.Edit-Card-Textarea').type("Editar esta tarea");
+        cy.get('.Edit-Button').click();
+
         // Activar la opción de edición
         cy.get('.List > .Lists-Cards > .Card')
             .first()
@@ -17,7 +25,7 @@ describe('Editar tareas', () => {
         
         // Escribir los nuevos parámetros y guardar
         cy.get('.Edit-Card-Textarea').clear().type(newTaskTitle);
-        cy.get('.Edit-Card-Description').type(newTaskDesc);
+        cy.get('.Edit-Card-Description').first().type(newTaskDesc);
         cy.get('.Button-Save').click();
 
         // Verificar que los parámetros cambiaron correctamente
@@ -37,6 +45,13 @@ describe('Editar tareas', () => {
         let prevTaskTitle = 'Cocinar';
         let prevTaskDesc = 'Sin descripcion...';
 
+        cy.get('#email').type('test@user.com');
+        cy.get('#password').type('asdf');
+        cy.get('.MuiButtonBase-root').click()
+
+        cy.get('.Toggle-Add-Card').first().click();
+        cy.get('.Edit-Card-Textarea').type("Cocinar");
+        cy.get('.Edit-Button').click();
 
         // Activar la opción de edición
         cy.get('.List > .Lists-Cards > .Card')
@@ -51,6 +66,7 @@ describe('Editar tareas', () => {
         .clear()
         .type(newTaskTitle);
         cy.get('.Edit-Card-Description')
+        .first()
         .clear()
         .type(newTaskDesc);
         cy.get('.Edit-Button-Cancel').click();

@@ -66,7 +66,7 @@ export default function SignIn() {
       tokenType: "Bearer",
       authState: {email: email} }, );
       navigate('/tableros');
-
+      console.log("esto es el token " + response.data.token);
     }catch (err) {
       if (err && err instanceof AxiosError)
         setError(err.response?.data.message);
