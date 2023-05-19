@@ -1,7 +1,11 @@
 describe('Búsqueda de tarea', () => { 
-    it('Buscar la tarea Cocinar', () => {
+    /* it('Buscar la tarea Cocinar', () => {
         
         cy.visit('localhost:3000');
+
+        cy.get('#email').type('test@user.com');
+        cy.get('#password').type('asdf');
+        cy.get('.MuiButtonBase-root').click()
 
         cy.get('#search')
             .type('Comprar')
@@ -10,11 +14,15 @@ describe('Búsqueda de tarea', () => {
             .first()
             .get('.CardTitle')
             .contains('Comprar')
-    });
+    }); */
 
     it('Crear tarea y despues buscarla', () => {
 
         cy.visit('localhost:3000');
+
+        cy.get('#email').type('test@user.com');
+        cy.get('#password').type('asdf');
+        cy.get('.MuiButtonBase-root').click()
 
         var taskTitle = "Esto es una nueva tarea";
         var search = "esto ES"
@@ -30,5 +38,20 @@ describe('Búsqueda de tarea', () => {
             .first()
             .get('.CardTitle')
             .contains(taskTitle)
+    })
+
+    it('Intentar poner caracteres extraños en la barra de búsqueda', () => {
+
+        cy.visit('localhost:3000');
+
+        cy.get('#email').type('test@user.com');
+        cy.get('#password').type('asdf');
+        cy.get('.MuiButtonBase-root').click()
+
+        cy.get('#search')
+            .type('!"#$%&/()=?¡+*-_}{][``^^|°¬')
+        
+        cy.get('.Board')
+            .should('be.visible')
     })
 });

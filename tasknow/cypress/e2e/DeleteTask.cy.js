@@ -3,6 +3,15 @@ describe('Eliminar Tarea', () => {
         
         cy.visit('localhost:3000');
 
+        cy.get('#email').type('test@user.com');
+        cy.get('#password').type('asdf');
+        cy.get('.MuiButtonBase-root').click()
+
+        cy.get('.Toggle-Add-Card').first().click();
+        cy.get('.Edit-Card-Textarea').type("Borrar esta tarea");
+        cy.get('.Edit-Card-Description').first().type("Borrar esta tarea");
+        cy.get('.Edit-Button').click();
+
         // eliminar el primer elemento de la lista
         cy.get('.List > .Lists-Cards > .Card')
             .first()
@@ -15,6 +24,6 @@ describe('Eliminar Tarea', () => {
 
         // verificar eliminación
         cy.get('.List > .Lists-Cards > .Card')
-            .should('have.lengthOf', 1);
+            .should('have.lengthOf', 0);
     });
 });
