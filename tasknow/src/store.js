@@ -22,6 +22,10 @@ const board = (state = { lists: [] }, action) => {
         const newLists = state.lists.filter(filterDeleted);
         return { lists: newLists };
       }
+      case "RESET_INITIAL_STATE":
+      return {
+        ...{ lists: [] },
+      }; 
       default:
         return state;
     }
@@ -95,6 +99,10 @@ const board = (state = { lists: [] }, action) => {
           }
         };
       }
+      case "RESET_INITIAL_STATE":
+      return {
+        ...{},
+      }; 
       default:
         return state;
     }
@@ -125,6 +133,10 @@ const board = (state = { lists: [] }, action) => {
             {}
           );
       }
+      case "RESET_INITIAL_STATE":
+      return {
+        ...{},
+      };
       default:
         return state;
     }
@@ -176,5 +188,8 @@ if (!store.getState().board.lists.length) {
   console.log("SEED");
   seed(store);
 }
+
+
+
   
-  export default store;
+export default store;

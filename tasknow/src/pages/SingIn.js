@@ -13,9 +13,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { themeOptions } from '../components/Themes';
-import { Router, Link as RouterLink} from "react-router-dom";
-
+import { Router, Link as RouterLink, useNavigate } from "react-router-dom";
+import { useSignIn } from "react-auth-kit";
+import axios, { AxiosError } from "axios";
+import { useState } from "react";
 function Copyright(props) {
+  
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
@@ -30,7 +33,13 @@ function Copyright(props) {
 
 const theme = createTheme(themeOptions);
 
+
 export default function SignIn() {
+
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+ 
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -38,7 +47,35 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     });
+
+    onSubmit(data.get('email'), data.get('password'));
   };
+
+  const signIn = useSignIn();
+
+  const onSubmit = async (email, password) =>{
+    
+    try{
+      const response = await axios.post(
+        "http://localhost:9000/posts/login",
+        {email, password}
+      );
+
+      signIn({ token: response.data.token, 
+        expiresIn: 3600,
+      tokenType: "Bearer",
+      authState: {email: email} }, );
+      navigate('/tableros');
+
+    }catch (err) {
+      if (err && err instanceof AxiosError)
+        setError(err.response?.data.message);
+      else if (err && err instanceof Error) setError(err.message);
+
+      console.log("Error: ", err);
+    }
+    
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -80,7 +117,7 @@ export default function SignIn() {
               autoComplete="current-password"
             />
             
-            <RouterLink to="/tableros">
+            
             <Button
               type="submit"
               fullWidth
@@ -89,7 +126,7 @@ export default function SignIn() {
             >
               Iniciar sesion
             </Button>
-            </RouterLink>
+            
             <Grid container>
               
               <Grid item>

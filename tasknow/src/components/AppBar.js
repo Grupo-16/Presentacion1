@@ -13,26 +13,16 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { cleanBoard, randomBoard } from '../cleanBoard';
+import store from '../store';
 const pages = ['Tableros'];
-const settings = ['Perfil', 'Cerrar sesión'];
+const settings = ['Perfil', 'Cerrar sesion'];
 
 
 const options = [
-  'None',
-  'Atria',
-  'Callisto',
-  'Dione',
-  'Ganymede',
-  'Hangouts Call',
-  'Luna',
-  'Oberon',
-  'Phobos',
-  'Pyxis',
-  'Sedna',
-  'Titania',
-  'Triton',
-  'Umbriel',
-];
+  'Tablero uno',
+  'Software',
+  'Pruebas y pruebas']
 
 const ITEM_HEIGHT = 100;
 
@@ -46,6 +36,8 @@ function ResponsiveAppBar() {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
+    cleanBoard(store);
+    randomBoard(store);
     setAnchorEl(null);
   };
 

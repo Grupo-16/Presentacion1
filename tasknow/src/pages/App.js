@@ -3,7 +3,11 @@ import "../styles/App.css";
 import React, { Component } from "react";
 import Board from "../components/Board";
 import ResponsiveAppBar from "../components/AppBar";
+
+
 class App extends Component {
+  
+
   render() {
     let imageStyle = {
       height: "100%",
@@ -15,7 +19,8 @@ class App extends Component {
       overflowX: "hidden",
       background: "linear-gradient( rgba(0, 0, 0, 0.5)",
    };
-
+   
+   
     return (
       <div className="App">
         <div class = "image" style = {imageStyle}>

@@ -6,7 +6,7 @@ import App from "./pages/App";
 import SignIn from "./pages/SingIn";
 import { Provider } from "react-redux";
 import store from "./store";
-
+import {AuthProvider, RequireAuth} from "react-auth-kit";
 
 import "./index.css";
 
@@ -14,18 +14,21 @@ import "./index.css";
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <Provider store={store}>
-  <BrowserRouter>
-    <Routes>
-      <Route path="/">
-
-        
-          <Route index element={ <SignIn/> } />
-          <Route path="tableros" element={<App />} />
-        
-
-      </Route>
-    </Routes>
-  </BrowserRouter>
+      <AuthProvider
+      authType = {"cookie"}
+      authName = {"_auth"}
+      cookieDomain={window.location.hostname}
+      cookieSecure={false} // HTTPS = false 
+      >
+        <BrowserRouter>
+          <Routes>
+            <Route path="/">
+                <Route index element={ <SignIn/> } />
+                <Route path="tableros" element={<RequireAuth loginPath="/" >  <App />  </RequireAuth>} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+    </AuthProvider>
   </Provider>
   ,
   rootElement

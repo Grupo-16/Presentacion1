@@ -13,6 +13,8 @@ class Board extends Component {
     currentSearch: ""
   };
 
+  
+
   toggleAddingList = () =>
     this.setState({ addingList: !this.state.addingList });
 

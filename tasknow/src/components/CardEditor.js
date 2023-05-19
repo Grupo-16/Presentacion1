@@ -14,9 +14,7 @@ import { TaskDetails } from "./Card";
 
 class CardEditor extends Component {
   state = {
-    taskDetails: this.props.taskDetails,
-    fecha:  dayjs( new Date().toISOString().split('T')[0])
-
+    taskDetails: this.props.taskDetails
     
   };
   
@@ -29,10 +27,15 @@ class CardEditor extends Component {
     let taskDetails = Object.assign({}, prevState.taskDetails);
     taskDetails.description = event.target.value
     return  {taskDetails} });
-  handleChangeFecha = event => this.setState( (prevState) => { 
+  handleChangeFecha = new_value => this.setState( (prevState) => { 
     let taskDetails = Object.assign({}, prevState.taskDetails);
-    taskDetails.expiration_date = event.target.value
+    taskDetails.expiration_date = new_value
     return  {taskDetails} });
+
+    handleChangeUser = event => this.setState( (prevState) => { 
+      let taskDetails = Object.assign({}, prevState.taskDetails);
+      taskDetails.assigned_user = event.target.value
+      return  {taskDetails} });
 
   onEnterKeyPressed = e => { // When key enter is pressed
     const { taskDetails } = this.state;
@@ -65,6 +68,23 @@ class CardEditor extends Component {
             value={taskDetails.description}
             onChange={this.handleChangeDescription}
             onKeyDown={this.onEnterKeyPressed}
+          />
+        <hr></hr>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker slotProps={{ textField: { size: 'small' } }} 
+            value={ dayjs(taskDetails.expiration_date) }  
+            onChange={ (new_value) => this.handleChangeFecha(new_value) }/>
+         </LocalizationProvider>
+
+        <hr></hr>
+
+        <TextareaAutosize
+            autoFocus
+            className="Edit-Card-Description"
+            placeholder="Usuario asignado"
+            value={taskDetails.assigned_user }
+            onChange={ this.handleChangeUser }
+            onKeyDown={ this.onEnterKeyPressed }
           />
 
         </div>

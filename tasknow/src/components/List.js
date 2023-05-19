@@ -10,7 +10,7 @@ import ListEditor from "./ListEditor";
 import store from "../store";
 import { TaskDetails } from "./Card";
 import shortid from "shortid";
-
+import dayjs, { Dayjs } from 'dayjs';
 class List extends Component {
   state = {
     editingTitle: false,
@@ -62,12 +62,17 @@ class List extends Component {
     }
   };
 
+  removeAccents = (str) => {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  } 
+
   applyFilter(cardId, index, list_id){
     let cardTitle = store.getState().cardsById[cardId].taskDetails.title;
     const searchFilter = this.props.searchFilter;
     let is_valid = true;
     
-    if( (new RegExp(searchFilter.toLowerCase())).test( cardTitle.toLowerCase()  )){
+    let clean_search = this.removeAccents(searchFilter).toLowerCase().replace(/[^a-zA-Z ]/g, "")
+    if( (new RegExp(clean_search)).test( this.removeAccents( cardTitle.toLowerCase() )  )){
       return(
         <Card
           key={cardId}
@@ -123,7 +128,7 @@ class List extends Component {
                     <CardEditor
                       onSave={this.addCard}
                       onCancel={this.toggleAddingCard}
-                      taskDetails= {new TaskDetails()}
+                      taskDetails= {new TaskDetails("","",dayjs(new Date().toISOString().split('T')[0]),"" )}
                       adding
                     />
                   ) : (
