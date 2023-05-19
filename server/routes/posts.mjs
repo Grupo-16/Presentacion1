@@ -1,6 +1,7 @@
 import express from "express";
 import db from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
+import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
@@ -80,5 +81,20 @@ router.delete("/:id", async (req, res) => {
 
   res.send(result).status(200);
 });
+
+
+router.post("/login", async(req, res) => {
+  const {email, password} = req.body;
+
+  // Verificar si esta en la db
+  console.log("llegando submit de", email, password);
+
+  const jwtToken = jwt.sign(
+    {"id": 0 , email: email},
+    process.env.JWT_SECRET);
+
+    res.json({message: "Bienvenido de nuevo!", token: jwtToken});
+
+})
 
 export default router;

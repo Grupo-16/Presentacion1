@@ -144,7 +144,7 @@ class Card extends Component {
 
             <Grid item xs={8}>
               <div className="CardVencimiento">
-                  Vence: { new Date().toISOString().split('T')[0]  } 
+                  Vence: { new Date(card.taskDetails.expiration_date).toISOString().split('T')[0]  } 
               </div>
             </Grid>
 

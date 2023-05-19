@@ -2,7 +2,6 @@ import shortid from "shortid";
 import { TaskDetails } from "./components/Card";
 
 
-
 function GenerateList(store, id, list_name){
 
   store.dispatch({
@@ -12,7 +11,58 @@ function GenerateList(store, id, list_name){
 
 }
 
+export async function cleanBoard(store) {
+  store.dispatch({
+      type: "RESET_INITIAL_STATE"
+    });
+      
+}
 
+function randomDate(start, end, startHour, endHour) {
+  var date = new Date(+start + Math.random() * (end - start));
+  var hour = startHour + Math.random() * (endHour - startHour) | 0;
+  date.setHours(hour);
+  return date;
+}
+
+
+function GenerateTask(store, list_id, task_details){
+  store.dispatch({
+    type: "ADD_CARD",
+    payload: {
+      listId: list_id,
+      cardId: shortid.generate(),
+      cardDetails: task_details,
+    }
+  });
+
+}
+
+export async function randomBoard(store){
+
+  let list_names = ["Por hacer", "En curso", "Finalizada"];
+  for (let index = 0; index < list_names.length; index++) {
+    GenerateList(store, index + 1, list_names[index]);
+  }
+
+  // Generar tareas
+  let random_int = Math.random() * (12 - 2) + 2; // Math.random() * (max - min) + min;
+  let task_details = [];
+  for (let index = 0; index < random_int; index++) {
+    let task = new TaskDetails( random_titulos[index] , 
+      descripciones[index], 
+      randomDate(new Date(2023, 5, 20), new Date(), 0, 24),
+      nombres[index]
+    )
+    task_details.push(task);
+  }
+
+
+  for (let index = 0; index < task_details.length; index++) {
+      GenerateTask(store, index%3 + 1 , task_details[index] );
+  }
+
+}
 
 
 const random_titulos = [
@@ -53,18 +103,3 @@ const nombres = [
   "Isabella",
   "Lucas"
 ];
-
-
-
-export default store => {
-
-
-
-  // Generar listas
-  let list_names = ["Por hacer", "En curso", "Finalizada"];
-  for (let index = 0; index < list_names.length; index++) {
-    GenerateList(store, index + 1, list_names[index]);
-  }
-
-
-};
