@@ -50,11 +50,11 @@ productividad de manera significativa.
 
 - Luego de esto, crear un archivo env en la carpeta server con los siguientes contenidos:
 
-    ATLAS_URI=<credencial mongodb>
+    ATLAS_URI="credencial mongodb"
 
     PORT=9000
 
-    JWT_SECRET=<clave secreta>
+    JWT_SECRET="clave secreta"
 
 - Ir al directorio server y ejecutar
 
