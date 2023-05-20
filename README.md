@@ -37,3 +37,18 @@ avanzadas, como la capacidad de asignar tareas a otros usuarios, programar recor
 establecer fechas de vencimiento para las tareas. Todo esto, combinado con un sólido conjunto de
 herramientas de análisis y seguimiento, permitiría a los usuarios optimizar su tiempo y aumentar su
 productividad de manera significativa.
+
+## Instrucciones de Instalación
+
+- Ir al directorio tasknow y ejecutar
+    npm install
+- Ir al directorio server y ejecutar
+    npm install
+- Luego de esto, crear un archivo env en la carpeta server con los siguientes contenidos:
+    ATLAS_URI=<credencial mongodb>
+    PORT=9000
+    JWT_SECRET=<clave secreta>
+- Ir al directorio server y ejecutar
+    npm start
+- Ir al directorio tasknow y ejecutar
+    npm start
