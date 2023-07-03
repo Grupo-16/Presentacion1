@@ -15,7 +15,7 @@ pipeline {
         //}
         stage('Deliver') {
             steps {
-                npm run build
+                sh 'npm run build'
             }
         }
     }
