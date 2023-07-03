@@ -5,8 +5,8 @@ pipeline {
         
         stage('Build') {
             steps {
-                sh 'cd tasknow'
-                sh 'npm install'
+                bat 'cd tasknow'
+                bat 'npm install'
             }
         }
        // stage('Test') {
@@ -16,7 +16,7 @@ pipeline {
         //}
         stage('Deliver') {
             steps {
-                sh 'npm run build'
+                bat 'npm run build'
             }
         }
     }
